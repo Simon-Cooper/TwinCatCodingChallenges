@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="SevenSegDecoder" Id="{d38e9c1f-940d-42a3-a8b4-b141de1bf195}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SevenSegDecoder
+VAR_INPUT
+    digit : INT;
+END_VAR
+VAR_OUTPUT
+    decodedDigit : ARRAY [0..6] OF BOOL;
+END_VAR
+VAR
+    bitA : BOOL;
+    bitB : BOOL;
+    bitC : BOOL;
+    bitD : BOOL;
+	inv_bitA: BOOL;
+    inv_bitB: BOOL;
+    inv_bitC: BOOL;
+    inv_bitD: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF digit>9 OR digit<0 THEN
+    digit:=0;
+END_IF
+bitA:= digit.3;
+bitB:= digit.2;
+bitC:= digit.1;
+bitD:= digit.0;
+inv_bitA := NOT(bitA);
+inv_bitB := NOT(bitB);
+inv_bitC := NOT(bitC);
+inv_bitD := NOT(bitD);
+
+decodedDigit[0]:= NOT((inv_bitA AND inv_bitB AND inv_bitC AND bitD) OR (bitB AND inv_bitC AND inv_bitD));
+decodedDigit[1]:= NOT((bitB AND inv_bitC AND bitD) OR (bitB AND bitC AND inv_bitD));
+decodedDigit[2]:= NOT(inv_bitB AND bitC AND inv_bitD);
+decodedDigit[3]:= NOT((inv_bitA AND inv_bitB AND inv_bitC AND bitD) OR (bitB AND inv_bitC AND inv_bitD) OR (bitB AND bitC AND bitD));
+decodedDigit[4]:= (bitC AND inv_bitD) OR (inv_bitB AND inv_bitD);
+decodedDigit[5]:= NOT((inv_bitA AND inv_bitB AND bitD) OR (inv_bitA AND inv_bitB AND bitC) OR (inv_bitA AND bitC AND bitD));
+decodedDigit[6]:= NOT((inv_bitA AND inv_bitB AND inv_bitC) OR (bitB AND bitC AND bitD));]]></ST>
+    </Implementation>
+    <LineIds Name="SevenSegDecoder">
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="5" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="34" Count="4" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

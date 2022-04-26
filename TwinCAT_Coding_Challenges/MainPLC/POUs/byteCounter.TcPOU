@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="byteCounter" Id="{23d27e2c-9524-4710-862b-630ae50716a3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM byteCounter
+VAR
+    byteCount : BYTE;
+    timer1 : TON;
+    timer2 : TON;
+    bitRep : ARRAY [0..7] OF BOOL;
+    
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[timer1.IN := TRUE; 
+timer1.PT := T#500mS;
+
+IF timer1.Q THEN
+    byteCount := byteCount + 1;
+    timer1.IN := FALSE;
+END_IF
+
+timer1();
+
+bitRep[0] := byteCount.0;
+bitRep[1] := byteCount.1;
+bitRep[2] := byteCount.2;
+bitRep[3] := byteCount.3;
+bitRep[4] := byteCount.4;
+bitRep[5] := byteCount.5;
+bitRep[6] := byteCount.6;
+bitRep[7] := byteCount.7;]]></ST>
+    </Implementation>
+    <LineIds Name="byteCounter">
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="21" Count="4" />
+      <LineId Id="27" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="onOffLed" Id="{b6065991-9aa8-49bd-9736-ef4d1d8a8a69}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM onOffLed
+VAR
+    inputSwitch : BOOL;
+    outputLED : BOOL;
+    rTrig : R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rTrig(CLK:= inputSwitch);
+
+IF rTrig.Q THEN
+    outputLED:= NOT outputLED;
+END_IF
+inputSwitch:= FALSE;]]></ST>
+    </Implementation>
+    <LineIds Name="onOffLed">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="11" Count="2" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

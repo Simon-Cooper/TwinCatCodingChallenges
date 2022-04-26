@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="sevenSegProg" Id="{aa3e8933-31ae-463c-8baf-c27d56345385}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM sevenSegProg
+VAR
+digit1Decoder : SevenSegDecoder;
+inputDigit : INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[digit1Decoder(digit:= inputDigit);]]></ST>
+    </Implementation>
+    <LineIds Name="sevenSegProg">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
