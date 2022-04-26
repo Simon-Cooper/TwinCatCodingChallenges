@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="motionChalleng_moveAbs" Id="{2f9ff8db-892a-43f5-9876-798d3644c9ec}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM motionChalleng_moveAbs
+VAR
+    myAxis : AXIS_REF;
+    mcPower : MC_Power;
+    mcMoveAbs : MC_MoveAbsolute;
+    highLimitPosition : LREAL := 500;
+    lowLimitPosition : LREAL := -5;
+    enableAxis : BOOL;
+    
+    userSetPoint : LREAL;
+    defaultVelocity : LREAL := 50;
+    executeMoveAbs : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[mcPower(Axis:= myAxis, Enable_Positive:= highLimit, Enable_Negative:= lowLimit, Enable:= enableAxis);
+
+mcMoveAbs(Axis:= myAxis, Execute:= executeMoveAbs, Position:= userSetPoint, Velocity:= defaultVelocity);
+IF mcMoveAbs.Done THEN
+    executeMoveAbs:= FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <Transition Name="highLimit" Id="{2ff71a4c-3b15-454a-b600-e6e17ba803c3}">
+      <Implementation>
+        <ST><![CDATA[highLimit:= myAxis.NcToPlc.ActPos<highLimitPosition;]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="lowLimit" Id="{58585069-4e4a-4f69-9ade-489021734355}">
+      <Implementation>
+        <ST><![CDATA[lowLimit:= myAxis.NcToPlc.ActPos>lowLimitPosition;]]></ST>
+      </Implementation>
+    </Transition>
+    <LineIds Name="motionChalleng_moveAbs">
+      <LineId Id="5" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="19" Count="2" />
+    </LineIds>
+    <LineIds Name="motionChalleng_moveAbs.highLimit">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="motionChalleng_moveAbs.lowLimit">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
