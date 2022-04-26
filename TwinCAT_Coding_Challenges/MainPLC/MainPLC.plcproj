@@ -35,6 +35,9 @@
     <Compile Include="POUs\SevenSegDecoder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\sevenSegDecoderV2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\sevenSegProg.TcPOU">
       <SubType>Code</SubType>
     </Compile>

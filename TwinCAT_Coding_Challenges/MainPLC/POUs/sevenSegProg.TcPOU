@@ -4,14 +4,17 @@
     <Declaration><![CDATA[PROGRAM sevenSegProg
 VAR
 digit1Decoder : SevenSegDecoder;
+digit2Decoder : SevenSegDecoderV2;
 inputDigit : INT := 0;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[digit1Decoder(digit:= inputDigit);]]></ST>
+      <ST><![CDATA[digit1Decoder(digit:= inputDigit);
+digit2Decoder(digit:= inputDigit);]]></ST>
     </Implementation>
     <LineIds Name="sevenSegProg">
       <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

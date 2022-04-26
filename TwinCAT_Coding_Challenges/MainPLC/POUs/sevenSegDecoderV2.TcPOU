@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="sevenSegDecoderV2" Id="{fd80c2ff-2d8d-41bf-890e-b44c1e4b0a11}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK sevenSegDecoderV2
+VAR_INPUT
+    digit : INT;
+END_VAR
+VAR_OUTPUT
+    decodedDigit : ARRAY [0..6] OF BOOL;
+END_VAR
+VAR
+    //Lookups
+    decoded_0 : ARRAY[0..6] OF BOOL:=[1,1,1,1,1,1,0];
+    decoded_1 : ARRAY[0..6] OF BOOL:=[0,1,1,0,0,0,0];
+    decoded_2 : ARRAY[0..6] OF BOOL:=[1,1,0,1,1,0,1];
+    decoded_3 : ARRAY[0..6] OF BOOL:=[1,1,1,1,0,0,1];
+    decoded_4 : ARRAY[0..6] OF BOOL:=[0,1,1,0,0,1,1];
+    decoded_5 : ARRAY[0..6] OF BOOL:=[1,0,1,1,0,1,1];
+    decoded_6 : ARRAY[0..6] OF BOOL:=[1,0,1,1,1,1,1];
+    decoded_7 : ARRAY[0..6] OF BOOL:=[1,1,1,0,0,0,0];
+    decoded_8 : ARRAY[0..6] OF BOOL:=[1,1,1,1,1,1,1];
+    decoded_9 : ARRAY[0..6] OF BOOL:=[1,1,1,1,0,1,1];
+    
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF digit>9 OR digit<0 THEN
+    digit:=0;
+END_IF
+
+CASE digit OF
+    0:
+        decodedDigit := decoded_0;
+    1:
+        decodedDigit := decoded_1;
+    2:
+        decodedDigit := decoded_2;
+    3:
+        decodedDigit := decoded_3;
+    4:
+        decodedDigit := decoded_4;
+    5:
+        decodedDigit := decoded_5;
+    6:
+        decodedDigit := decoded_6;
+    7:
+        decodedDigit := decoded_7;
+    8:
+        decodedDigit := decoded_8;
+    9:
+        decodedDigit := decoded_9;                                                                        
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="sevenSegDecoderV2">
+      <LineId Id="52" Count="1" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="32" Count="17" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
